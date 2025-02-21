@@ -1,0 +1,20 @@
+
+{
+    "missions": "Missões",
+    "settings": "Configurações",
+    "add_mission": "Adicionar Nova Missão",
+    "points": "Pontos:",
+    "go_back": "Missões",
+    "choose_language": "Escolha o Idioma",
+    "pending_missions": "Missões Pendentes",
+    "mission_name": "Digite o nome da missão:",
+    "darkmode": "Modo Escuro",
+    "about": "Sobre",
+    "description": 
+    "Este aplicativo é meu primeiro projeto como dev. Nele busquei criar um sistema onde é possível controlar suas metas e atividades diárias, tentei criar uma perspectiva mais gameficada para ajudar a completar as tarefas !",
+    "dev": "Desenvolvedor: aebe\n",
+    "version": "Versão: 1.1A\n",
+    "suport": "Suporte",
+    "contact": "Entrar em contato com o Suporte"
+  }
+  

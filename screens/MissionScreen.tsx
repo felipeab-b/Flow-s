@@ -4,9 +4,15 @@ import { FlatList, StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, A
 import AsyncStorage from '@react-native-async-storage/async-storage';
 /*TouchableOpacity para adicionar um botão personalizavel*/
 /**FlatList forma de deixar as missões pendentes em uma lista mais dinamica, pode se marcar como feita e adicionar */
+import { useTheme } from '../contexts/ThemeContext';
+import { useTranslation } from 'react-i18next'; //importa a função de tradução
 
 /** Cria uma tela missionscreen com função de mudar de telas, any = nao existe verificação do tipo de tela */
 export default function MissionScreen({ navigation }: { navigation: any}) {
+
+  const { t } = useTranslation(); //cham a função t que retorna o valor associado no idioma salvo
+
+  const { isDarkMode } = useTheme(); //retorna isDarkMode para uso Direto
 
   /** lista com as missões e função para adicionar uma missão nova */
   /** Os itens tem uma propriedade de completed para saber se foram concluidos */
@@ -134,11 +140,11 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
 
   return (
     
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
 
       {/* Titulos Principais da página */}
-      <Text style={styles.header}>Acompanhamento de Missões</Text>
-      <Text style={styles.subHeader}>Missões Pendentes:</Text>
+      <Text style={[styles.header, isDarkMode && styles.darkText]}>{t('missions')}</Text>
+      <Text style={[styles.subHeader, isDarkMode && styles.darkText]}>{t('pending_missions')}</Text>
 
       {/* lista onde esta a lista atual de objetivos a ser comprida
       Flatlist usada para criar uma lista que le dados de uma lista e renderiza esses dados*/}
@@ -146,8 +152,7 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
         style = {{marginTop: 15}}
         data={missions} /** Conteudo da lista, fazendo referencia a lista */
         keyExtractor={(item) => item.id} /** Cada item recebe um identificador unico referente ao seu número */
-        renderItem={({ item }) => ( /** Para cada item da lista será exibido um componente text com o name do item */
-          /** Quando pressionado chama a função com alert.alert */
+        renderItem={({ item }) => ( /** Para cada item da lista será exibido um componente touchableop com o text do item */
           <TouchableOpacity onPress={() => handleMissionPress(item.id,item.name)}>
           <Text
             style = {[
@@ -173,16 +178,17 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
           inputRange: [0, points],
           outputRange: [0.5, 1] /** Opacidade quando o valor de points for 0/ quando for = points */
         }),
-        transform: [{ scale: scaleAnimation }] /** aplica a animação de transofrmação do scale do objeto */
+        transform: [{ scale: scaleAnimation }], /** aplica a animação de transofrmação do scale do objeto */
+        color: isDarkMode ? '#f4f4f9' : '#ff4500', //o operador ? determina que se isDarkMode true usa o primeiro valor e falso o outro
       }]}
       >
-        Pontos: {points}
+        {t('points')} {points}
       </Animated.Text>
 
       {/** Input de texto para digitar algo */}
       <TextInput
         style = {styles.input}
-        placeholder='Digite o nome da missão:' /** Nome que aparece no input */
+        placeholder={t('mission_name')} /** Nome que aparece no input */
         value= {newMissionName} /** Liga o valor original do input para a variavel newmission vazia */
         onChangeText={setNewMissionName} /** Atualiza o valor da variavel newmission para o que for digitado */
       />
@@ -196,12 +202,12 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
         ]} 
         /** Ao pressionar o botão chama a função addmission com o tetxo digitado */
         onPress = {addMission}> 
-        <Text style={styles.buttonText}>Adicionar nova Missão</Text>
+        <Text style={styles.buttonText}>{t('add_mission')}</Text>
       </TouchableOpacity>
 
       {/** Botão que ao pressionado chama a função navigation com o intuito de mudar para a tela de config. */}
       <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Configurações') }>
-        <Text style={styles.navButtonText}>Ir para Configurações</Text>
+        <Text style={styles.navButtonText}>{t('settings')}</Text>
       </TouchableOpacity>
 
       {/* Controle da visualização da barra de status do dispositivo */}
@@ -296,6 +302,14 @@ const styles = StyleSheet.create({
   navButtonText: { 
     color: '#fff', 
     fontSize: 18 
+  },
+
+  darkContainer: {
+    backgroundColor: '#333',
+  },
+
+  darkText: {
+    color: '#fff',
   },
 
 });

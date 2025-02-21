@@ -1,0 +1,19 @@
+{
+    "missions": "Missions",
+    "settings": "Settings",
+    "add_mission": "Add New Mission",
+    "points": "Points:",
+    "go_back": "Missions",
+    "choose_language": "Choose Language",
+    "pending_missions": "Pending Missions:",
+    "mission_name": "Enter the mission name:",
+    "darkmode": "Dark Mode",
+    "about": "About",
+    "description": 
+    "This app is my first project as a dev. In it I sought to create a system where you can control your goals and daily activities, I tried to create a more gamified perspective to help you complete your tasks!",
+    "dev": "Developer: aebe\n",
+    "version": "Version: 1.1A\n",
+    "suport": "Suport",
+    "contact": "Contact Suport"
+  }
+  
