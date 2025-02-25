@@ -3,7 +3,7 @@
     "missions": "Missões",
     "settings": "Configurações",
     "add_mission": "Adicionar Nova Missão",
-    "points": "Pontos:",
+    "points": "Pontos: ",
     "go_back": "Missões",
     "choose_language": "Escolha o Idioma",
     "pending_missions": "Missões Pendentes",
@@ -15,6 +15,11 @@
     "dev": "Desenvolvedor: aebe\n",
     "version": "Versão: 1.1A\n",
     "suport": "Suporte",
-    "contact": "Entrar em contato com o Suporte"
+    "contact": "Entrar em contato com o Suporte",
+    "go_levels": "Níveis",
+    "go_stats": "Estatísticas",
+    "level": "Nível:",
+    "completed_missions": "Missões Completas",
+    "evolution": "Evolução dos Pontos"
   }
   

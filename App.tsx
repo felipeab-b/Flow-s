@@ -4,8 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack'; /** Cria uma pil
 /** Importa as outras telas */
 import MissionsScreen from './screens/MissionScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import LevelsScreen from './screens/LevelsScreen';
 import { ThemeProvider } from './contexts/ThemeContext';
 import './i18n';
+import StatsScreen from './screens/StatsScreen';
 
 /** Variavel para definir quais telas vao fazer parte da navegação */
 const Stack = createStackNavigator();
@@ -21,6 +23,8 @@ export default function App() {
           {/** Define o nome de cada tela dentro do app */}
           <Stack.Screen name="Missões" component={MissionsScreen} />
           <Stack.Screen name="Configurações" component={SettingsScreen} />
+          <Stack.Screen name="Níveis" component={LevelsScreen} />
+          <Stack.Screen name="Estatísticas" component={StatsScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

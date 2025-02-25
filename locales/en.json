@@ -2,7 +2,7 @@
     "missions": "Missions",
     "settings": "Settings",
     "add_mission": "Add New Mission",
-    "points": "Points:",
+    "points": "Points: ",
     "go_back": "Missions",
     "choose_language": "Choose Language",
     "pending_missions": "Pending Missions:",
@@ -14,6 +14,11 @@
     "dev": "Developer: aebe\n",
     "version": "Version: 1.1A\n",
     "suport": "Suport",
-    "contact": "Contact Suport"
+    "contact": "Contact Suport",
+    "go_levels": "Levels",
+    "go_stats": "Stats",
+    "level": "Level:",
+    "completed_missions": "Completed Missions",
+    "evolution": "Points Evolution"
   }
   

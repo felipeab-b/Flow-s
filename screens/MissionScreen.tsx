@@ -25,6 +25,8 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
   /** Variavel que armazena o número de pontos, comeca no 0. Set atualiza o valor de poitns forçando um novo render */
   const [points, setPoints] = useState(0);
 
+  const [completedMissions, setCompMissions] = useState(0);
+
   /** definir pontos iniciais das animações assim como impedir que eles sejam zeradas com as renderizações */
   const pointsAnimation = useRef(new Animated.Value(0)).current;
   const scaleAnimation = useRef(new Animated.Value(1)).current;
@@ -36,6 +38,7 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
         const storedMissions = await AsyncStorage.getItem('missions'); 
         /** cria uma constante que puxa os valores dos vetores missions como JSON  */
         const storedPoints = await AsyncStorage.getItem('points');
+        const storedCompletedMissions = await AsyncStorage.getItem('completedMissions');
   
         if (storedMissions) setMissions(JSON.parse(storedMissions)); 
         /**Caso encontre valores em missions os transforma em array e atualiza o estado*/
@@ -43,6 +46,7 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
         /** caso encontre um valor de pontos não nulo faz o mesmo da linha acima */
           setPoints(JSON.parse(storedPoints));
         }
+        if (storedCompletedMissions !== null) setCompMissions(JSON.parse(storedCompletedMissions));
       /** Caso seja encontrado algum erro no tratamento dos dados, exibe um console log  */
       } catch (error) {
         console.log('Erro ao carregar os dados:', error);
@@ -59,6 +63,7 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
         /** Converte os arrays de missoes e pontos em strings JSON e salva nas determinadas chaves */
         await AsyncStorage.setItem('missions', JSON.stringify(missions));
         await AsyncStorage.setItem('points', JSON.stringify(points));
+        await AsyncStorage.setItem('completedMissions', JSON.stringify(completedMissions));
         /** Notifica possivel erro */
       } catch (error) {
         console.error('Erro ao salvar os dados:', error);
@@ -68,7 +73,7 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
     if (missions.length > 0 || points !== 0) {
       saveData(); 
     }
-  }, [missions, points]);
+  }, [missions, points, completedMissions]);
 
   /** useEffect realiza efeitos fora da renderização depedente ao points, quando o point muda animção é feita */
   useEffect(() => {
@@ -105,11 +110,12 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
          se for o estado completed é mudado para true*/
         setMissions(missions.map(mission => mission.id === missionId ? { ...mission, completed: true } : mission));
         /** aqui mission recebe o resultado de find, que procura na lista missions um item com o mesmo id de middiosId
-         da missão clicada. Então o if verifica se mission existe (find deu certo) e se mission.completed = false
+         da missão clicada. Então o if verifica se mission existe (find deu certo) e se mission.completed = true
          caso isso bata setpoints é chamado para mudar o valor de points, para o valor antigo + 10 */
         const mission = missions.find( m => m.id === missionId );
         if (mission && !mission.completed) {
-          setPoints(prevPoints => prevPoints + 10);
+          setPoints(prevPoints => prevPoints + 5);
+          setCompMissions(prevcompletedMissions => prevcompletedMissions + 1);
           }
         }
       },
@@ -137,6 +143,24 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
     /** apos isso a variavel new mission é zerada para que se possa digitar outra missão */
     setNewMissionName('');
   };
+
+  const resetPoints = async () => { 
+    //função para zerar os pontos, objetivo de auxiliar no design dos níveis
+    await AsyncStorage.setItem('points', JSON.stringify(0)); 
+    //salva um valor no armazenamtno local
+    //é necessario converter o número para string pois async so aceita string
+    setPoints(0);
+  };
+
+  //resetPoints(); //chama a função, so precisa retirar o comentário
+
+  const evolvePoints = async() => {
+    //função para aumentar os pontos, auxiliar no design
+    await AsyncStorage.setItem('points', JSON.stringify(0));
+    setPoints(800);
+  };
+
+  //evolvePoints(); //chama a função
 
   return (
     
@@ -205,16 +229,25 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
         <Text style={styles.buttonText}>{t('add_mission')}</Text>
       </TouchableOpacity>
 
-      {/** Botão que ao pressionado chama a função navigation com o intuito de mudar para a tela de config. */}
-      <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Configurações') }>
-        <Text style={styles.navButtonText}>{t('settings')}</Text>
-      </TouchableOpacity>
+      <View style = {[{flexDirection:'row', width:'100%',justifyContent:'center', gap: 20,}]}>
+        {/** Botão que ao pressionado chama a função navigation com o intuito de mudar para a tela de config. */}
+        <TouchableOpacity style={styles.navButtonCo} onPress={() => navigation.navigate('Configurações') }>
+          <Text style={styles.navButtonText}>{t('settings')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.navButtonNi} onPress={() => navigation.navigate('Níveis') }>
+          <Text style={styles.navButtonText}>{t('go_levels')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.navButtonSt} onPress={() => navigation.navigate('Estatísticas') }>
+          <Text style={styles.navButtonText}>{t('go_stats')}</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Controle da visualização da barra de status do dispositivo */}
       <StatusBar style="auto" />
 
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({
@@ -233,6 +266,14 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingRight: 30,
     fontSize: 40,
+  },
+
+  darkCont: {
+    backgroundColor: '#333',
+  },
+
+  darkText: {
+    color: '#fff',
   },
 
   subHeader: {
@@ -291,12 +332,34 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
-  navButton: { 
+  navButtonCo: { 
     backgroundColor: '#3f2a8c', 
     padding: 10, 
     borderRadius: 8, 
     marginTop: 10, 
     marginBottom: 35,
+    width:150,
+    alignItems:'center',
+  },
+
+  navButtonNi: { 
+    backgroundColor: '#3f2a8c', 
+    padding: 10, 
+    borderRadius: 8, 
+    marginTop: 10, 
+    marginBottom: 35,
+    width:150,
+    alignItems:'center',
+  },
+
+  navButtonSt: { 
+    backgroundColor: '#3f2a8c', 
+    padding: 10, 
+    borderRadius: 8, 
+    marginTop: 10, 
+    marginBottom: 35,
+    width:150,
+    alignItems:'center',
   },
 
   navButtonText: { 
@@ -306,10 +369,6 @@ const styles = StyleSheet.create({
 
   darkContainer: {
     backgroundColor: '#333',
-  },
-
-  darkText: {
-    color: '#fff',
   },
 
 });

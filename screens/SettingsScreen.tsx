@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { View, Text,  StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext';
 import { Switch } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
@@ -61,9 +61,17 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
                   <Text style={styles.contact}>{t('contact')}</Text>
                 </TouchableOpacity>
 
-            <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Missões') }>
+              <View style={[{flexDirection:'row', width:'100%',justifyContent:'center', gap: 20,}]}>
+              <TouchableOpacity style={styles.navButtonCo} onPress={() => navigation.navigate('Missões') }>
                 <Text style={styles.navButtonText}>{t('go_back')}</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButtonNi} onPress={() => navigation.navigate('Níveis') }>
+                <Text style={styles.navButtonText}>{t('go_levels')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButtonNi} onPress={() => navigation.navigate('Estatísticas') }>
+                <Text style={styles.navButtonText}>{t('go_stats')}</Text>
+              </TouchableOpacity>
+              </View>
 
         </View>
   );
@@ -173,11 +181,21 @@ const styles = StyleSheet.create({
     marginTop:20,
   },
 
-  navButton: {
+  navButtonCo: {
     backgroundColor: '#3f2a8c', 
     padding: 10, 
     borderRadius: 8, 
-    alignSelf:'center',
+    alignItems:'center',
+    width:150,
+    marginTop:120,
+  },
+
+  navButtonNi: {
+    backgroundColor: '#3f2a8c', 
+    padding: 10, 
+    borderRadius: 8, 
+    width:150,
+    alignItems:'center',
     marginTop:120,
   },
 
