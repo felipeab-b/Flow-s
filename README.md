@@ -12,6 +12,7 @@ Este aplicativo permite que os usuários acompanhem suas metas por meio de um si
 - **Troca de Idioma**: É possível trocar o idioma do app entre português e inglês.
 - **Tela de Níveis**: Uma tela onde mostra o seu nível baseado na quantidade de pontos do cliente, com um design único para cada nível
 - **Tela de Estátisticas**: Tela que mostra algumas estátisticas do app como quantidade total de pontos e quantidade de missões completas
+- **Responsividade**: O app foi adaptado para mudar seu layout dependendo da tela de visualização, porém essa funcionalidade ainda tem suas limitações.
 
 ## Tecnologias Usadas
 
@@ -32,7 +33,9 @@ Este aplicativo permite que os usuários acompanhem suas metas por meio de um si
 É o primeiro código em TypeScript que escrevo logo tive algumas estranhezas quanto a alguns termos e a sintaxe, além disso tive muita
 dificuldade para entender bem as partes relacionadas à animação e salvamento de dados.
 
-Responsividade, fiz todos os testes de layout em um tablet logo quando tentei abrir no celular a página se desorganizou inteira
+~~Responsividade, fiz todos os testes de layout em um tablet logo quando tentei abrir no celular a página se desorganizou inteira~~
+
+Consegui configurar a responsavidade do app de forma quase aceitável, restando ainda algumas ressalvas. Outra dificuldade foi tratar o input, pois ao escrever o teclado tampa o input.
 
 ## Futuro
 
@@ -40,9 +43,9 @@ Responsividade, fiz todos os testes de layout em um tablet logo quando tentei ab
 
 ~~Ainda é necessário adicionar uma tela de estatísticas e a tela de níveis e suas funcionalidades. Além de uma funcionalidade de perfil.~~
 
-Em próximas atualizações pretendo implementar a responsividade, e estudar uma possível distribuição
+~~Em próximas atualizações pretendo implementar a responsividade, e estudar uma possível distribuição~~
 
-Depois desejo aumentar a quantidade de stats mostrada como tempo médio para realizar missão, missão mais rápida e um gráfico de quantidade de missões diárias. Além de implementar designs mais profissionais nos níveis. E por fim, melhorar de forma final o design do app como um todo.
+Depois desejo aumentar a quantidade de stats mostrada como tempo médio para realizar missão, missão mais rápida e um gráfico de quantidade de missões diárias. Além de implementar designs mais profissionais nos níveis. E por fim, melhorar de forma final o design do app como um todo. Será necessário configurar a responisvidade de forma eficiente assim como aprimorar o código futuramente.
 
 
 

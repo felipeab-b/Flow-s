@@ -4,11 +4,14 @@ import { useTheme } from "../contexts/ThemeContext";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LineChart } from "react-native-chart-kit";
+import { useResponsive } from "../contexts/useResponsive";
 
 export default function StatsScreen({ navigation }: {navigation: any}){
 
     const { t } =  useTranslation();
-    const {isDarkMode, toggleDarkMode} = useTheme();
+    const {isDarkMode} = useTheme();
+    const {isMedium} = useResponsive();
+
 
     const [points, setPoints] = useState(0);
     const [completedMissions, setCompMissions] = useState(0);
@@ -38,15 +41,15 @@ export default function StatsScreen({ navigation }: {navigation: any}){
                 <Text style={[styles.text, isDarkMode && styles.darkText]}>{t('completed_missions')}: {completedMissions}</Text>
                 <Text style={[styles.text, isDarkMode && styles.darkText]}>...</Text>
 
-            <View style = {[{flexDirection:'row', width:'100%',justifyContent:'center', gap: 20, position:'absolute', bottom:'3.7%'}]}>
-                <TouchableOpacity style={styles.navButtonCo} onPress={() => navigation.navigate('Configurações') }>
+            <View style = {[{flexDirection:'row', width:'100%',justifyContent:'center', gap: 20, position:'absolute', bottom:'3.7%'}, isMedium && {marginBottom:6}]}>
+                <TouchableOpacity style={[styles.navButtonCo, isMedium && {width:'auto'}]} onPress={() => navigation.navigate('Configurações') }>
                 <Text style={styles.navButtonText}>{t('settings')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style = {styles.navButtonNi} onPress={() => navigation.navigate('Missões') }>
+                <TouchableOpacity style = {[styles.navButtonNi, isMedium && {width:'auto'}]} onPress={() => navigation.navigate('Missões') }>
                 <Text style={styles.navButtonText}>{t('go_back')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style = {styles.navButtonSt} onPress={() => navigation.navigate('Estatísticas') }>
-                <Text style={styles.navButtonText}>{t('go_stats')}</Text>
+                <TouchableOpacity style = {[styles.navButtonSt, isMedium && {width:'auto'}]} onPress={() => navigation.navigate('Níveis') }>
+                <Text style={styles.navButtonText}>{t('go_levels')}</Text>
                 </TouchableOpacity>
             </View>
 

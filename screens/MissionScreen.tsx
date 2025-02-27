@@ -1,14 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Animated} from 'react-native';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Animated, KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 /*TouchableOpacity para adicionar um botão personalizavel*/
 /**FlatList forma de deixar as missões pendentes em uma lista mais dinamica, pode se marcar como feita e adicionar */
 import { useTheme } from '../contexts/ThemeContext';
 import { useTranslation } from 'react-i18next'; //importa a função de tradução
+import { useResponsive } from '../contexts/useResponsive';
 
 /** Cria uma tela missionscreen com função de mudar de telas, any = nao existe verificação do tipo de tela */
 export default function MissionScreen({ navigation }: { navigation: any}) {
+
+  const {isMedium} = useResponsive();
 
   const { t } = useTranslation(); //cham a função t que retorna o valor associado no idioma salvo
 
@@ -231,13 +234,13 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
 
       <View style = {[{flexDirection:'row', width:'100%',justifyContent:'center', gap: 20,}]}>
         {/** Botão que ao pressionado chama a função navigation com o intuito de mudar para a tela de config. */}
-        <TouchableOpacity style={styles.navButtonCo} onPress={() => navigation.navigate('Configurações') }>
+        <TouchableOpacity style={[styles.navButtonCo, isMedium && {width:'auto'}]} onPress={() => navigation.navigate('Configurações') }>
           <Text style={styles.navButtonText}>{t('settings')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.navButtonNi} onPress={() => navigation.navigate('Níveis') }>
+        <TouchableOpacity style = {[styles.navButtonNi, isMedium && {width:'auto'} ]} onPress={() => navigation.navigate('Níveis') }>
           <Text style={styles.navButtonText}>{t('go_levels')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.navButtonSt} onPress={() => navigation.navigate('Estatísticas') }>
+        <TouchableOpacity style = {[styles.navButtonSt, isMedium && {width:'auto'}]} onPress={() => navigation.navigate('Estatísticas') }>
           <Text style={styles.navButtonText}>{t('go_stats')}</Text>
         </TouchableOpacity>
       </View>
@@ -251,6 +254,7 @@ export default function MissionScreen({ navigation }: { navigation: any}) {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1, /** A div principal ocupa a página interia */
     backgroundColor: '#f4f4f9',
@@ -338,7 +342,6 @@ const styles = StyleSheet.create({
     borderRadius: 8, 
     marginTop: 10, 
     marginBottom: 35,
-    width:150,
     alignItems:'center',
   },
 
@@ -348,7 +351,6 @@ const styles = StyleSheet.create({
     borderRadius: 8, 
     marginTop: 10, 
     marginBottom: 35,
-    width:150,
     alignItems:'center',
   },
 
@@ -358,7 +360,6 @@ const styles = StyleSheet.create({
     borderRadius: 8, 
     marginTop: 10, 
     marginBottom: 35,
-    width:150,
     alignItems:'center',
   },
 

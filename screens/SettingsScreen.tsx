@@ -4,9 +4,12 @@ import { useTheme } from '../contexts/ThemeContext';
 import { Switch } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useResponsive } from '../contexts/useResponsive';
 
 /** Cria uma tela settingsscreen com a possibilidadde de alterar entre telas, any */
 export default function SettingsScreen({ navigation }: { navigation: any }) {
+
+    const {isMedium} = useResponsive();
 
     const handleSupport = () => { //função que vai permitir mandar um email para o suporte (eu :])
         Linking.openURL('mailto:aebedev01@gmail.com');
@@ -29,46 +32,46 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
             <Text style={[styles.header, isDarkMode && styles.darkText]}>{t('settings')}</Text>
 
             <View style={styles.AbContainer}>
-                <Text style={[styles.about, isDarkMode && styles.darkText]}>{t('about')}</Text>
-                <Text style={[styles.desc, {marginTop:15}]}>{t('dev')}</Text>
-                <Text style={styles.desc}>{t('version')}</Text>
-                <Text style={styles.desc}>{t('description')}</Text>
+                <Text style={[styles.about, isDarkMode && styles.darkText, isMedium && {fontSize:25, marginBottom:10}]}>{t('about')}</Text>
+                <Text style={[styles.desc, isMedium && {fontSize: 15}]}>{t('dev')}</Text>
+                <Text style={[styles.desc, isMedium && {fontSize: 15}]}>{t('version')}</Text>
+                <Text style={[styles.desc, isMedium && {fontSize: 15}]}>{t('description')}</Text>
             </View>
             {/** coponentes de texto do sobre, versão, dev e descrição */}
 
             {/** Div onde está o switch de estado */}
-            <View style={styles.switchContainer}> 
-                <Text style={[styles.switchLabel, isDarkMode && styles.darkText]}>{t('darkmode')}</Text>
+            <View style={[styles.switchContainer, isMedium && {marginTop:16}]}> 
+                <Text style={[styles.switchLabel, isDarkMode && styles.darkText, isMedium && {fontSize: 25}]}>{t('darkmode')}</Text>
                 <Switch
                     value = {isDarkMode} //O que o switch vai trocar, o isDarkMode de true <=> false
                     onValueChange = {toggleDarkMode} //Ao fazer a troca chama a função toggleDarkMode
                 />
             </View>
 
-                <Text style={[styles.LangText, isDarkMode && styles.darkText]}>{t('choose_language')}</Text>
-                <View style={styles.langCont}>
+                <Text style={[styles.LangText, isDarkMode && styles.darkText, isMedium && {fontSize: 25, marginTop:20}]}>{t('choose_language')}</Text>
+                <View style={[styles.langCont,isMedium && {paddingTop: 23, paddingBottom: 17}]}>
                   <TouchableOpacity style={[(language === 'pt') ? styles.selectLangpt : styles.pt]} onPress={() => changeLang('pt')} disabled={language ==='pt'}>
                     <Text style={styles.languageText}>Português</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={[(language === 'en') ? styles.selectLangen : styles.en]} onPress={() => changeLang('en')} disabled={language ==='en'}>
+                  <TouchableOpacity style={[(language === 'en') ? styles.selectLangen : styles.en,]} onPress={() => changeLang('en')} disabled={language ==='en'}>
                     <Text style={styles.languageText}>English</Text>
                   </TouchableOpacity>
                 </View>
                 {/** Disabled desabilita o idioma ja selecionado */}
 
-                <Text style={[styles.supText, isDarkMode && styles.darkText]}>{t('suport')}</Text>
+                <Text style={[styles.supText, isDarkMode && styles.darkText, isMedium && {fontSize: 25, marginTop:1}]}>{t('suport')}</Text>
                 <TouchableOpacity style={styles.supMail} onPress={handleSupport}>
                   <Text style={styles.contact}>{t('contact')}</Text>
                 </TouchableOpacity>
 
               <View style={[{flexDirection:'row', width:'100%',justifyContent:'center', gap: 20,}]}>
-              <TouchableOpacity style={styles.navButtonCo} onPress={() => navigation.navigate('Missões') }>
+              <TouchableOpacity style={[styles.navButtonCo, isMedium && {width:'auto', marginTop:93}]} onPress={() => navigation.navigate('Missões') }>
                 <Text style={styles.navButtonText}>{t('go_back')}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.navButtonNi} onPress={() => navigation.navigate('Níveis') }>
+              <TouchableOpacity style={[styles.navButtonNi, isMedium && {width:'auto', marginTop:93}]} onPress={() => navigation.navigate('Níveis') }>
                 <Text style={styles.navButtonText}>{t('go_levels')}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.navButtonNi} onPress={() => navigation.navigate('Estatísticas') }>
+              <TouchableOpacity style={[styles.navButtonNi, isMedium && {width:'auto', marginTop:93}]} onPress={() => navigation.navigate('Estatísticas') }>
                 <Text style={styles.navButtonText}>{t('go_stats')}</Text>
               </TouchableOpacity>
               </View>
@@ -108,6 +111,7 @@ const styles = StyleSheet.create({
     color: '#6c51cb',
     fontSize:30,
     fontWeight:'bold',
+    marginBottom:17,
   },
 
   desc: {

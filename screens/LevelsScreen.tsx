@@ -15,9 +15,12 @@ import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { useTheme } from "../contexts/ThemeContext";
+import { useResponsive } from "../contexts/useResponsive";
 
 
 export default function LevelsScreen({ navigation }: {navigation: any}){
+
+    const {isMedium} = useResponsive();
 
     const { t } =  useTranslation();
 
@@ -84,19 +87,19 @@ export default function LevelsScreen({ navigation }: {navigation: any}){
         <Text style={[styles.levelText, isDarkMode && styles.darkText]}>{t('level') + level}</Text>
         <Text style={[styles.pointsText, isDarkMode && styles.darkText]}>{t('points') + points}</Text>
 
-        <View style = {[styles.levelBG,{backgroundColor}]}>
+        <View style = {[styles.levelBG,{backgroundColor}, , isMedium && {width:300, height:350}]}>
             <Image source={imageBackground[level - 1]} style={styles.image} />
         </View>
 
-        <View style = {[{flexDirection:'row', width:'100%',justifyContent:'center', gap: 20, position:'absolute', bottom:'3.7%'}]}>
-            <TouchableOpacity style={styles.navButtonCo} onPress={() => navigation.navigate('Configurações') }>
-            <Text style={styles.navButtonText}>{t('settings')}</Text>
+        <View style = {[{flexDirection:'row', width:'100%',justifyContent:'center', gap: 20, position:'absolute', bottom:'3.7%'}, isMedium && {marginBottom:6}]}>
+            <TouchableOpacity style={[styles.navButtonCo, isMedium && styles.navButtonCoMed]} onPress={() => navigation.navigate('Configurações') }>
+            <Text style={[styles.navButtonText]}>{t('settings')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.navButtonNi} onPress={() => navigation.navigate('Missões') }>
-            <Text style={styles.navButtonText}>{t('go_back')}</Text>
+            <TouchableOpacity style = {[styles.navButtonNi, isMedium && styles.navButtonCoMed]} onPress={() => navigation.navigate('Missões') }>
+            <Text style={[styles.navButtonText]}>{t('go_back')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.navButtonSt} onPress={() => navigation.navigate('Estatísticas') }>
-            <Text style={styles.navButtonText}>{t('go_stats')}</Text>
+            <TouchableOpacity style = {[styles.navButtonSt, isMedium && styles.navButtonCoMed]} onPress={() => navigation.navigate('Estatísticas') }>
+            <Text style={[styles.navButtonText]}>{t('go_stats')}</Text>
             </TouchableOpacity>
             </View>
         </View>
@@ -133,13 +136,21 @@ const styles = StyleSheet.create({
       fontSize: 20,
     },
 
-    navButtonCo: { 
+      navButtonCo: { 
         backgroundColor: '#3f2a8c', 
         padding: 10, 
         borderRadius: 8, 
         width:150,
         alignItems:'center',
-      },
+      },      
+    
+      navButtonCoMed: { 
+        backgroundColor: '#3f2a8c', 
+        padding: 10, 
+        borderRadius: 8, 
+        width:'auto',
+        alignItems:'center',
+      },  
     
       navButtonNi: { 
         backgroundColor: '#3f2a8c', 
