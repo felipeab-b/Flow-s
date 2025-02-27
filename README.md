@@ -37,6 +37,8 @@ dificuldade para entender bem as partes relacionadas à animação e salvamento 
 
 Consegui configurar a responsavidade do app de forma quase aceitável, restando ainda algumas ressalvas. Outra dificuldade foi tratar o input, pois ao escrever o teclado tampa o input.
 
+Não consegui criar os arquivos PWA para uma possível distribuição.
+
 ## Futuro
 
  ~~Próximos objetivos são: adicionar funcionalidades à tela de configurações, adicionar uma tela de estatísticas e suas funcionalidades, adicionar uma tela de níveis e suas funcionalidades e configurar o salvamento de dados em todas essas páginas.~~ 
